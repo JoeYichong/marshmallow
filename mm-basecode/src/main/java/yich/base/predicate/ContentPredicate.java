@@ -5,7 +5,7 @@ import yich.base.dbc.Require;
 
 import java.util.function.Function;
 
-abstract public class ContentPredicate<T> extends AbsPredicate<T> {
+abstract public class ContentPredicate<T> extends AltPredicate<T> {
     private Function<T, String> contentSelector;
 
 

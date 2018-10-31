@@ -9,14 +9,14 @@ abstract public class WeightAppender<T> extends AbsPredicate<T> {
 
     private AbsPredicate<T> corePredicate;
 
-    public WeightAppender(String name, AbsPredicate<T> filter) {
+    public WeightAppender(String name, AbsPredicate<T> predicate) {
         super(name);
-        setCorePredicate(filter);
+        setCorePredicate(predicate);
     }
 
-    public WeightAppender(String name, int level, AbsPredicate<T> filter) {
+    public WeightAppender(String name, int level, AbsPredicate<T> predicate) {
         super(name, level);
-        setCorePredicate(filter);
+        setCorePredicate(predicate);
     }
 
     public int getWeight() {
@@ -32,9 +32,9 @@ abstract public class WeightAppender<T> extends AbsPredicate<T> {
         return corePredicate;
     }
 
-    public WeightAppender<T> setCorePredicate(AbsPredicate<T> filter) {
-        Require.argumentNotNull(filter, "Filter<T> filter");
-        this.corePredicate = filter;
+    public WeightAppender<T> setCorePredicate(AbsPredicate<T> predicate) {
+        Require.argumentNotNull(predicate, "Filter<T> filter");
+        this.corePredicate = predicate;
         return this;
     }
 

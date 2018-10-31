@@ -67,23 +67,23 @@ abstract public class PatternPredicate<T> extends ContentPredicate<T> {
         return this;
     }
 
-    private boolean isPatternMatched(T target) {
+    private String isPatternMatched(T target) {
         String content = getContentSelector().apply(target);
         if (content == null)
-            return false;
+            return null;
         if (patterns.size() == 0)
-            return true;
+            return "";
         for (Pattern pattern : patterns) {
             if (pattern.matcher(content).find()) {
-                return true;
+                return "Pattern '" + pattern.toString() + "' Matches";
             }
         }
-        return false;
+        return null;
     }
 
 
     @Override
-    public boolean test(T target) {
+    public Object altTest(T target) {
         return isPatternMatched(target);
     }
 

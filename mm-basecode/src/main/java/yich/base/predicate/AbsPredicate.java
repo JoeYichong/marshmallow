@@ -8,14 +8,14 @@ import java.util.function.Predicate;
 import java.util.logging.Logger;
 
 abstract public class AbsPredicate<T> implements Predicate<T> {
-    final private static Logger logger = JUL.getLogger(AbsPredicate.class);
+//    final private static Logger logger = JUL.getLogger(AbsPredicate.class);
 
     private String name;
     private int level = 0;
     private PredicateAction type = PredicateAction.ACCEPT;
 
 
-//    public Filter() {
+//    public AbsPredicate() {
 //        this.name = StrUtil.randomAlphaNumeric(10);
 //    }
 
@@ -121,31 +121,6 @@ abstract public class AbsPredicate<T> implements Predicate<T> {
             }
         });
     }
-
-//    abstract protected boolean match(T target);
-//
-//    abstract protected String matchCallback(T target);
-//
-//    private boolean match0(T target) {
-//        boolean isMatched = match(target);
-//        if (isMatched) {
-//
-//        }
-//        return isMatched;
-//    }
-
-//    abstract protected Object test0(T target);
-//
-//    @Override
-//    public boolean test(T target) {
-//        Object re = test0(target);
-//        if (re == null) {
-//            logger.info(String.valueOf(re));
-//            return false;
-//        } else {
-//            return true;
-//        }
-//    }
 
 
 }

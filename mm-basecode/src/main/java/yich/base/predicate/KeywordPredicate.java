@@ -48,22 +48,22 @@ abstract public class KeywordPredicate<T> extends ContentPredicate<T> {
 //        return topic == null ? null : topic.getPostTitle();
 //    }
 
-    public boolean isKeywordMatched(T target) {
+    public String isKeywordMatched(T target) {
         String content = getContentSelector().apply(target);
         if (content == null)
-            return false;
+            return null;
         if (keywords.size() == 0)
-            return true;
+            return "";
         for (String keyword : keywords) {
             if (content.contains(keyword)) {
-                return true;
+                return "Keyword '" + keyword + "' Matches";
             }
         }
-        return false;
+        return null;
     }
 
     @Override
-    public boolean test(T target) {
+    public Object altTest(T target) {
         return isKeywordMatched(target);
     }
 }
