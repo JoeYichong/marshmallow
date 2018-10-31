@@ -1,0 +1,1 @@
+{"id":1,"method":"Network.enable","params":{"maxTotalBufferSize":10000000,"maxResourceBufferSize":5000000}}
