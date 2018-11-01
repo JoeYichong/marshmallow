@@ -72,11 +72,11 @@ public class DocUtil {
             try {
 
                 if (i == 0) {
-                    logger.info("** driver get page - i = " + i);
+//                    logger.info("** driver get page - i = " + i);
                     driverProvider.get().get(url);
                 } else {
                     //driver.navigate().refresh();
-                    logger.info("** Switch to JSoup to get page...");
+                    logger.info("** Using JSoup-Http to get page...");
                     doc = getJsoupDoc(url);
                     if (doc != null) {
                         break;
@@ -93,7 +93,7 @@ public class DocUtil {
                 if (i < 2) {
                     logger.info("** Try to get page '" + url + "' again... i = " + i);
                     driverProvider.reset();
-                    logger.info("** DriverProvider Reset.");
+                    logger.info("** DriverProvider Reset...");
                     detectAndRmBot(driverProvider);
                 }
             }

@@ -59,7 +59,7 @@ abstract public class PatternPredicate<T> extends ContentPredicate<T> {
                 continue;
             }
             try {
-                this.patterns.add(Pattern.compile(regex));
+                this.patterns.add(Pattern.compile(regex, Pattern.DOTALL));
             } catch (PatternSyntaxException e) {
                 logger.log(Level.WARNING, "** Invalid Pattern Syntax: \"" + regex + "\"\n", e);
             }
@@ -75,7 +75,7 @@ abstract public class PatternPredicate<T> extends ContentPredicate<T> {
             return "";
         for (Pattern pattern : patterns) {
             if (pattern.matcher(content).find()) {
-                return "Pattern '" + pattern.toString() + "' Matches";
+                return "Pattern '" + pattern.toString() + "' Hit";
             }
         }
         return null;

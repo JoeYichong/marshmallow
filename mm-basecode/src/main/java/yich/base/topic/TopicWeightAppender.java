@@ -39,7 +39,7 @@ public class TopicWeightAppender extends WeightAppender<Topic> {
     protected void addWeight(Topic topic, int weight) {
         if (topic != null && (overwrite || topic.getWeight() < weight)) {
             topic.setWeight(weight);
-            logger.info("'" + topic.getUrl() + "' set weight to '" + weight + "'");
+            logger.info("** '" + topic.getUrl() + "' set weight to '" + weight + "'");
         }
     }
 

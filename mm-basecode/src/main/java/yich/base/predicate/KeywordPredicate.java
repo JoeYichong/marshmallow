@@ -56,7 +56,7 @@ abstract public class KeywordPredicate<T> extends ContentPredicate<T> {
             return "";
         for (String keyword : keywords) {
             if (content.contains(keyword)) {
-                return "Keyword '" + keyword + "' Matches";
+                return "Keyword '" + keyword + "' Hit";
             }
         }
         return null;
