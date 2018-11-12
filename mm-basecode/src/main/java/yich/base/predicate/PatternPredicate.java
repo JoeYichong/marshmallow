@@ -11,7 +11,7 @@ import java.util.logging.Logger;
 import java.util.regex.Pattern;
 import java.util.regex.PatternSyntaxException;
 
-abstract public class PatternPredicate<T> extends ContentPredicate<T> {
+abstract public class PatternPredicate<T> extends AltContentPredicate<T> {
     final private static Logger logger = JUL.getLogger(PatternPredicate.class);
 
     private List<Pattern> patterns;

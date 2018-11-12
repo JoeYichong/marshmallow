@@ -1,11 +1,8 @@
 package yich.base.predicate;
 
-
-import yich.base.dbc.Require;
-
 import java.util.function.Function;
 
-abstract public class ContentPredicate<T> extends AltPredicate<T> {
+abstract public class ContentPredicate<T> extends AbsPredicate<T> {
     private Function<T, String> contentSelector;
 
 
@@ -28,8 +25,11 @@ abstract public class ContentPredicate<T> extends AltPredicate<T> {
     }
 
     public ContentPredicate setContentSelector(Function<T, String> contentSelector) {
-        Require.argumentNotNull(contentSelector);
-        this.contentSelector = contentSelector;
+        if (contentSelector == null){
+            this.contentSelector = this::defaultContentSelector;
+        } else {
+            this.contentSelector = contentSelector;
+        }
         return this;
     }
 

@@ -8,7 +8,7 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
 
-abstract public class KeywordPredicate<T> extends ContentPredicate<T> {
+abstract public class KeywordPredicate<T> extends AltContentPredicate<T> {
     final private static Logger logger = JUL.getLogger(KeywordPredicate.class);
 
     private Set<String> keywords;
