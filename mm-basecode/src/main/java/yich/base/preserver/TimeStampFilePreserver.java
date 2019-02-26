@@ -59,7 +59,9 @@ abstract public class TimeStampFilePreserver<T> extends AbsFilePreserver<T> {
         return file;
     }
 
-    protected File getDestFile(String nameSep, int randStrLen) {
+    // default type
+    @Override
+    public File getDestFile(String nameSep, int randStrLen) {
         return getDestFile(nameSep, randStrLen, 1);
     }
 

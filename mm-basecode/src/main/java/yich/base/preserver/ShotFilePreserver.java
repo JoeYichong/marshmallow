@@ -82,10 +82,10 @@ public class ShotFilePreserver extends TimeStampFilePreserver<BufferedImage> {
         return shotFile.getAbsolutePath();
     }
 
-    @Override
-    public void accept(BufferedImage image) {
-        save(image);
-    }
+//    @Override
+//    public void accept(BufferedImage image) {
+//        save(image);
+//    }
 
     @Override
     public String apply(BufferedImage image) {

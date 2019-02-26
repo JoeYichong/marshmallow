@@ -21,7 +21,7 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
 
     public AbsFilePreserver() {
         basePath = System.getProperty("user.dir")
-                + File.separator + "_word_docs_" + File.separator;
+                + File.separator + "_docs_" + File.separator;
     }
 
     @Override
@@ -110,6 +110,11 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
             }
         }
         return sb.length() != 0 ? sb.toString() : "";
+    }
+
+    @Override
+    public void accept(T t) {
+        apply(t);
     }
 
 }
