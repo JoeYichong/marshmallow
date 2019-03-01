@@ -3,6 +3,7 @@ package yich.base.predicate;
 
 import yich.base.dbc.Require;
 import yich.base.logging.JUL;
+import yich.base.util.StrUtil;
 
 import java.util.Iterator;
 import java.util.List;
@@ -53,8 +54,8 @@ abstract public class PredicateNode<T> extends AbsPredicate<T> {
         return this;
     }
 
-    public PredicateNode<T> addPredicate(AbsPredicate<T>... filters) {
-        Require.argumentNotNullAndNotEmpty(filters, "Filter<T>... predicates");
+    public PredicateNode<T> addAbsPredicate(AbsPredicate<T>... filters) {
+        Require.argumentNotNullAndNotEmpty(filters, "AbsPredicate<T>... predicates");
         for (AbsPredicate<T> filter : filters) {
             if (filter != null) {
                 this.predicates.add(filter);
@@ -62,6 +63,18 @@ abstract public class PredicateNode<T> extends AbsPredicate<T> {
         }
         return this;
     }
+
+    public PredicateNode<T> addPredicate(Predicate<T>... filters) {
+        Require.argumentNotNullAndNotEmpty(filters, "Predicate<T>... predicates");
+        for (Predicate<T> filter : filters) {
+            if (filter != null) {
+                this.predicates.add(AbsPredicate.of("Predicate@"
+                                      + StrUtil.randomAlphaNumeric(10), filter));
+            }
+        }
+        return this;
+    }
+
 
     public PredicateNode<T> addPredicate(String name, Predicate<T> predicate) {
         Require.argumentNotNullAndNotEmpty(name, "String name");
@@ -102,6 +115,12 @@ abstract public class PredicateNode<T> extends AbsPredicate<T> {
         }
         return this;
     }
+
+    public PredicateNode<T> clearPredicates() {
+        predicates.clear();
+        return this;
+    }
+
 
 //    public Predicate<T> accumulate(BinaryOperator<Predicate<T>> accumulator) {
 //        Require.argumentNotNull(accumulator);

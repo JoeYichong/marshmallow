@@ -4,7 +4,7 @@ import yich.base.logging.JUL;
 
 import java.util.logging.Logger;
 
-abstract public class AltContentPredicate<T> extends ContentPredicate<T> implements AltPredicate<T>{
+abstract public class AltContentPredicate<T> extends ContentPredicate<T> implements AltPredicate<T> {
     final private static Logger logger = JUL.getLogger(AltContentPredicate.class);
 
     public AltContentPredicate(String name) {

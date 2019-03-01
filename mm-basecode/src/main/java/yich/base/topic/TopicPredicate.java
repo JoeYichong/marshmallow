@@ -66,7 +66,7 @@ public class TopicPredicate extends PredicateNode<Topic> {
         }
 
         public TopicPredicate add() {
-            TopicPredicate.this.addPredicate(TopicKeywordFilter.this);
+            TopicPredicate.this.addAbsPredicate(TopicKeywordFilter.this);
             return TopicPredicate.this;
         }
     }
@@ -124,7 +124,7 @@ public class TopicPredicate extends PredicateNode<Topic> {
         }
 
         public TopicPredicate add() {
-            TopicPredicate.this.addPredicate(TopicPatternFilter.this);
+            TopicPredicate.this.addAbsPredicate(TopicPatternFilter.this);
             return TopicPredicate.this;
         }
     }
@@ -168,7 +168,7 @@ public class TopicPredicate extends PredicateNode<Topic> {
         }
 
         public TopicPredicate add() {
-            TopicPredicate.this.addPredicate(TopicTimeFilter.this);
+            TopicPredicate.this.addAbsPredicate(TopicTimeFilter.this);
             return TopicPredicate.this;
         }
     }
