@@ -1,4 +1,4 @@
-package office;
+package yich.base.office;
 
 
 import yich.base.logging.JUL;
