@@ -1,37 +1,22 @@
 package yich.base.office;
 
 
+import org.apache.poi.openxml4j.opc.OPCPackage;
+import org.apache.poi.xwpf.extractor.XWPFWordExtractor;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFRun;
+import yich.base.dbc.Require;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Set;
+import java.util.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class WordUtil {
-//    public static void getText(Node element) {
-//        for (Node n : element.childNodes()) {
-//            if (n instanceof TextNode && !((TextNode) n).isBlank()) {
-//                System.out.println(((TextNode) n).text());
-//            } else {
-//                getText(n);
-//            }
-//        }
-//    }
-//
-//    public static void getText(Elements elements){
-//        for (Node n : elements) {
-//            if (n instanceof TextNode && !((TextNode) n).isBlank()) {
-//                System.out.println(((TextNode) n).text());
-//            } else {
-//                getText(n);
-//            }
-//        }
-//
-//    }
 
     private static void insertString(String str, XWPFRun run) throws IOException {
         if (str.contains("\n")) {
@@ -107,59 +92,35 @@ public class WordUtil {
 //                + "\' successfully");
     }
 
-//    public static Document getPage(String url, int timeout) {
-//
-//        System.out.println("**Start get Page: " + url);
-//        Document doc = null;
-//        for (;;) {
-//            try {
-//                doc = Jsoup.connect(url)
-//                        //.userAgent("Mozilla")
-//                        .cookie("auth", "token")
-//                        .timeout(timeout)
-//                        .get();
-//                break;
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//        System.out.println("**End get Page");
-//        return doc;
-//    }
-//
-//
-//    public static String reduce(List<String> list){
-//        String str =  list.stream()
-//                .map(e -> {
-//                    return "\"" + e + "\"";
-//                })
-//                .reduce((a, b) -> {
-//                    System.out.println("Hi");
-//                    return a + ", " + b;
-//                }).get();
-//        return "[" + str + "]";
-//    }
-//
-//    public static String reduce2(List<String> list){
-//        String str =  list.stream()
-//                .reduce((a, b) -> {
-//                    //System.out.println("Hi");
-//                    return a + "\r\n" + b;
-//                }).get();
-//        return str;
-//
-//    }
-//
-//    public static void toContentFile(String txt, String file, boolean append)  {
-//        if (txt != null) {
-//            try(OutputStream os = new FileOutputStream(file, append)) {
-//                os.write(txt.getBytes());
-//                os.flush();
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//    }
 
+    public static String readDocx(File src_file){
+        Require.argumentNotNull(src_file, "File src_file");
 
+        String text;
+        try(FileInputStream fis = new FileInputStream(src_file)) {
+            XWPFDocument xdoc = new XWPFDocument(OPCPackage.open(fis));
+            XWPFWordExtractor extractor = new XWPFWordExtractor(xdoc);
+            text = extractor.getText();
+
+        } catch(Exception ex) {
+            throw new RuntimeException(ex);
+        }
+        return text;
+    }
+
+    public static List<String> readDocx(File src_file, Pattern ptn) {
+        Require.argumentNotNull(ptn, "Pattern ptn");
+        String text = readDocx(src_file);
+        List<String> list = new ArrayList<>();
+
+        Matcher matcher = ptn.matcher(text);
+        int index = 0;
+        String temp;
+        while (matcher.find()){
+            temp = matcher.group(2);
+            list.add(index++, temp);
+        }
+
+        return list;
+    }
 }
