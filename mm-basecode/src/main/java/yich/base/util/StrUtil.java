@@ -18,10 +18,7 @@ package yich.base.util;
 
 import yich.base.dbc.Require;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class StrUtil {
@@ -62,6 +59,15 @@ public class StrUtil {
 
     public static String setToJsonValue(Set set) {
 		return set == null ? null : arrToJsonValue(set.toArray());
+	}
+
+	public static String colToStr(Collection<String> strs) {
+		StringBuilder sb = new StringBuilder();
+		for (String str : strs) {
+			sb.append(str);
+			sb.append("\n");
+		}
+		return sb.toString();
 	}
 
 }
