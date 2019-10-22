@@ -15,6 +15,8 @@ public interface FilePreserver<T> extends Consumer<T>, Function<T, String> {
 
     FilePreserver appendTag(String... tags);
 
+    FilePreserver removeTag(String... tags);
+
     String getFormat();
 
     FilePreserver setFormat(String format);

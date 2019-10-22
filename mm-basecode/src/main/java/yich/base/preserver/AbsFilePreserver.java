@@ -7,11 +7,12 @@ import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
     private String basePath;
-    private String tag;
+    private List<String> tags;
     private String format;
     private List<String> appendedPath;
 
@@ -39,29 +40,52 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
 
     @Override
     public String getTag() {
-        return tag;
+        if (this.tags == null)
+            return "";
+
+        return String.join("_", tags);
     }
 
-    private String reduceTags(String... tags) {
-        String reduced = null;
-        if (tags != null && tags.length > 0) {
-            reduced = "";
-            for (String tag : tags) {
-                reduced += tag;
-            }
-        }
-        return reduced;
-    }
+//    private String reduceTags(String... tags) {
+//        String reduced = null;
+//        if (tags != null && tags.length > 0) {
+//            reduced = "";
+//            for (String tag : tags) {
+//                reduced += tag;
+//            }
+//        }
+//        return reduced;
+//    }
 
     @Override
     public AbsFilePreserver setTag(String... tags) {
-        this.tag = reduceTags(tags);
+        if (tags != null && tags.length > 0){
+            this.tags = Arrays.asList(tags);
+        }
+
+//        this.tag = reduceTags(tags);
+
         return this;
     }
 
     @Override
     public FilePreserver appendTag(String... tags){
-        this.tag = this.tag == null ? reduceTags(tags) : this.tag + reduceTags(tags);
+        if (this.tags == null){
+            this.tags = new ArrayList<>();
+        }
+        this.tags.addAll(Arrays.asList(tags));
+//        this.tag = this.tag == null ? reduceTags(tags) : this.tag + reduceTags(tags);
+        return this;
+    }
+
+    @Override
+    public FilePreserver removeTag(String... tags) {
+        if (this.tags != null) {
+            this.tags.removeAll(Arrays.asList(tags));
+//            for (var t : tags){
+//                this.tag.replaceAll(t, "");
+//            }
+        }
         return this;
     }
 
