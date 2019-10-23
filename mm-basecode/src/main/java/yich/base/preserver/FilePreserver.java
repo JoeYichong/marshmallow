@@ -9,7 +9,7 @@ public interface FilePreserver<T> extends Consumer<T>, Function<T, String> {
 
     FilePreserver setBasePath(String basePath);
 
-    String getTag();
+    String tag();
 
     FilePreserver setTag(String... tags);
 
@@ -17,7 +17,7 @@ public interface FilePreserver<T> extends Consumer<T>, Function<T, String> {
 
     FilePreserver removeTag(String... tags);
 
-    String getFormat();
+    String format();
 
     FilePreserver setFormat(String format);
 
@@ -28,5 +28,5 @@ public interface FilePreserver<T> extends Consumer<T>, Function<T, String> {
     String getAppendedPath();
 
     // override this to change output style
-    File getDestFile(String nameSep, int randStrLen);
+    File getDestFile();
 }

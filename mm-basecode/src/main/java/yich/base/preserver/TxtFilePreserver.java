@@ -12,11 +12,12 @@ import java.util.logging.Logger;
 public class TxtFilePreserver extends TimeStampFilePreserver<Object> {
     final private static Logger logger = JUL.getLogger(TxtFilePreserver.class);
 
-    private int type;
 
     public TxtFilePreserver() {
         setFormat("txt");
-        this.type = 1;
+        setNameSep("_");
+        setRandStrLen(3);
+        setType(1);
     }
 
     @Override
@@ -27,7 +28,7 @@ public class TxtFilePreserver extends TimeStampFilePreserver<Object> {
 
     @Override
     public String apply(Object txt) {
-        File file = getDestFile("_", 3, type);
+        File file = getDestFile();
         int size;
         String str_txt;
         try(FileOutputStream os = new FileOutputStream(file)) {
@@ -49,12 +50,4 @@ public class TxtFilePreserver extends TimeStampFilePreserver<Object> {
         return file.getAbsolutePath();
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public TxtFilePreserver setType(int type) {
-        this.type = type;
-        return this;
-    }
 }

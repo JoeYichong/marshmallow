@@ -12,18 +12,12 @@ import java.util.logging.Logger;
 public class WordFilePreserver extends TimeStampFilePreserver<Object> {
     final private static Logger logger = JUL.getLogger(WordFilePreserver.class);
 
-    private int type;
 
     public WordFilePreserver() {
         setFormat("docx");
-        this.type = 1;
+        setType(1);
     }
 
-    //
-//    @Override
-//    public File getDestFile(String nameSep, int randStrLen) {
-//        return getDestFile(nameSep, randStrLen, 1);
-//    }
 
     @Override
     public void accept(Object txt) {
@@ -33,7 +27,7 @@ public class WordFilePreserver extends TimeStampFilePreserver<Object> {
 
     @Override
     public String apply(Object txt) {
-        File file = getDestFile("_", 3, type);
+        File file = getDestFile();
         int size;
         try {
             if (txt instanceof Collection) {
@@ -53,13 +47,5 @@ public class WordFilePreserver extends TimeStampFilePreserver<Object> {
         return file.getAbsolutePath();
     }
 
-    public int getType() {
-        return type;
-    }
-
-    public WordFilePreserver setType(int type) {
-        this.type = type;
-        return this;
-    }
 
 }

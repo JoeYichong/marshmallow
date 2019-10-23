@@ -15,6 +15,12 @@ import java.util.logging.Logger;
 public class ByteArrayListPreserver extends TimeStampFilePreserver<List<byte[]>> {
     final private static Logger logger = JUL.getLogger(ByteArrayListPreserver.class);
 
+    public ByteArrayListPreserver() {
+        setNameSep("_");
+        setRandStrLen(5);
+        setType(2);
+    }
+
     public static byte[] merge(List<byte[]> data) {
         if (data.size() == 0) {
             return new byte[0];
@@ -45,7 +51,7 @@ public class ByteArrayListPreserver extends TimeStampFilePreserver<List<byte[]>>
         Require.stateNotNull(data);
 
         byte[] all = merge(data);
-        File saveFile = getDestFile("_", 5);
+        File saveFile = getDestFile();
 
         ByteArrayInputStream is = new ByteArrayInputStream(all);
         Files.copy(is, Paths.get(saveFile.getAbsolutePath()));
@@ -55,10 +61,6 @@ public class ByteArrayListPreserver extends TimeStampFilePreserver<List<byte[]>>
         return saveFile.getAbsolutePath();
     }
 
-    @Override
-    public File getDestFile(String nameSep, int randStrLen) {
-        return getDestFile(nameSep, randStrLen, 2);
-    }
 
     @Override
     public String apply(List<byte[]> data) {

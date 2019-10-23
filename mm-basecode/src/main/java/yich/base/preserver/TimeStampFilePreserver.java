@@ -13,40 +13,46 @@ import java.util.logging.Logger;
 abstract public class TimeStampFilePreserver<T> extends AbsFilePreserver<T> {
     final private static Logger logger = JUL.getLogger(TimeStampFilePreserver.class);
 
-    private String getFileName_1(String nameSep, int randStrLen) {
+    private int type;
+
+    public TimeStampFilePreserver() {
+        this.type = 1;
+    }
+
+    private String getFileName_1() {
         return getBasePath() + getAppendedPath()
                 //+ TimeUtil.getLocalDateNow("") + File.separator
                 + LocalDate.now().format(DateTimeFormatter.BASIC_ISO_DATE) + File.separator
-                + (getTag() == null ? "" : getTag() + nameSep)
+                + (tag() == null ? "" : tag() + nameSep())
                 //+ TimeUtil.getLocalTimeNow("")
                 + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"))
-                + nameSep + StrUtil.randomAlphaNumeric(randStrLen) + "." + getFormat();
+                + nameSep() + StrUtil.randomAlphaNumeric(randStrLen()) + "." + format();
     }
 
-    private String getFileName_2(String nameSep, int randStrLen) {
+    private String getFileName_2() {
         return getBasePath() + getAppendedPath()
-                + (getTag() == null ? "" : getTag() + nameSep)
+                + (tag() == null ? "" : tag() + nameSep())
                 //+ TimeUtil.getLocalDateNow("")
                 + LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"))
                 //+ TimeUtil.getLocalTimeNow("")
                 + LocalTime.now().format(DateTimeFormatter.ofPattern("HHmmss"))
-                + nameSep + StrUtil.randomAlphaNumeric(randStrLen) + "." + getFormat();
+                + nameSep() + StrUtil.randomAlphaNumeric(randStrLen()) + "." + format();
     }
 
-
-    protected File getDestFile(String nameSep, int randStrLen, int type) {
+    @Override
+    public File getDestFile() {
         String filename;
         switch(type) {
             case 1:
-                filename = getFileName_1(nameSep, randStrLen);
+                filename = getFileName_1();
                 break;
             case 2:
-                filename = getFileName_2(nameSep, randStrLen);
+                filename = getFileName_2();
                 break;
             case 3:
 
             default: {
-                filename = getFileName_1(nameSep, randStrLen);
+                filename = getFileName_1();
             }
         }
 
@@ -59,10 +65,12 @@ abstract public class TimeStampFilePreserver<T> extends AbsFilePreserver<T> {
         return file;
     }
 
-    // default type
-    @Override
-    public File getDestFile(String nameSep, int randStrLen) {
-        return getDestFile(nameSep, randStrLen, 1);
+    public int getType() {
+        return type;
     }
 
+    public TimeStampFilePreserver setType(int type) {
+        this.type = type;
+        return this;
+    }
 }

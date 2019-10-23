@@ -21,6 +21,8 @@ public class ShotFilePreserver extends TimeStampFilePreserver<BufferedImage> {
         setBasePath(basePath);
         setTag("Tag");
         setFormat("png");
+        setNameSep("_");
+        setRandStrLen(5);
     }
 
     private String checkImageType(String format) {
@@ -71,10 +73,10 @@ public class ShotFilePreserver extends TimeStampFilePreserver<BufferedImage> {
     private String save(BufferedImage image) {
         Require.stateNotNull(image, "BufferedImage image");
 
-        File shotFile = getDestFile("_", 5);
+        File shotFile = getDestFile();
         // Copy the element shot to disk
         try {
-            ImageIO.write(image, getFormat(), shotFile);
+            ImageIO.write(image, format(), shotFile);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

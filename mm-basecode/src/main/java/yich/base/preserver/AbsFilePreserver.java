@@ -15,14 +15,14 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
     private List<String> tags;
     private String format;
     private List<String> appendedPath;
-
-//    {
-//        this.appendedPath = new ArrayList<>();
-//    }
+    private String nameSep;
+    private int randStrLen;
 
     public AbsFilePreserver() {
         basePath = System.getProperty("user.dir")
                 + File.separator + "_docs_" + File.separator;
+        this.nameSep = "_";
+        this.randStrLen = 0;
     }
 
     @Override
@@ -39,31 +39,18 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
     }
 
     @Override
-    public String getTag() {
+    public String tag() {
         if (this.tags == null)
             return "";
 
         return String.join("_", tags);
     }
 
-//    private String reduceTags(String... tags) {
-//        String reduced = null;
-//        if (tags != null && tags.length > 0) {
-//            reduced = "";
-//            for (String tag : tags) {
-//                reduced += tag;
-//            }
-//        }
-//        return reduced;
-//    }
-
     @Override
     public AbsFilePreserver setTag(String... tags) {
         if (tags != null && tags.length > 0){
             this.tags = Arrays.asList(tags);
         }
-
-//        this.tag = reduceTags(tags);
 
         return this;
     }
@@ -74,7 +61,6 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
             this.tags = new ArrayList<>();
         }
         this.tags.addAll(Arrays.asList(tags));
-//        this.tag = this.tag == null ? reduceTags(tags) : this.tag + reduceTags(tags);
         return this;
     }
 
@@ -82,15 +68,12 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
     public FilePreserver removeTag(String... tags) {
         if (this.tags != null) {
             this.tags.removeAll(Arrays.asList(tags));
-//            for (var t : tags){
-//                this.tag.replaceAll(t, "");
-//            }
         }
         return this;
     }
 
     @Override
-    public String getFormat() {
+    public String format() {
         return format;
     }
 
@@ -134,6 +117,28 @@ abstract public class AbsFilePreserver<T> implements FilePreserver<T> {
             }
         }
         return sb.length() != 0 ? sb.toString() : "";
+    }
+
+    public String nameSep() {
+        return nameSep;
+    }
+
+    public AbsFilePreserver setNameSep(String nameSep) {
+        Require.argumentNotNull(nameSep);
+
+        this.nameSep = nameSep;
+        return this;
+    }
+
+    public int randStrLen() {
+        return randStrLen;
+    }
+
+    public AbsFilePreserver setRandStrLen(int randStrLen) {
+        Require.argument(randStrLen >= 0, randStrLen, "randStrLen >= 0");
+
+        this.randStrLen = randStrLen;
+        return this;
     }
 
     @Override
