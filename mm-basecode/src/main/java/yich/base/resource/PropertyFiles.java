@@ -10,7 +10,7 @@ import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.stream.Collectors;
 
-
+// used to access Property Files
 abstract public class PropertyFiles {
 
     private static Properties getProperties(String path) {
@@ -68,6 +68,24 @@ abstract public class PropertyFiles {
 
         public String getProperty(String key) {
             return properties().getProperty(key);
+        }
+
+        public PropertyFiles.Item setProperty(String key, String value) {
+            Require.argumentNotNullAndNotEmpty(key, "String key");
+
+            properties().setProperty(key, value);
+            return this;
+        }
+
+        public PropertyFiles.Item update() {
+            if (properties != null) {
+                try(OutputStream os = new FileOutputStream(path)) {
+                    properties.store(os, null);
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            return this;
         }
 
         public String str() {
