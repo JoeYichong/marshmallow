@@ -14,11 +14,15 @@ abstract public class AbsTimeInflater implements TimeInflater {
 
     abstract protected Pattern datePtn();
 
+    abstract protected Pattern timePtn();
+
     abstract protected Pattern datetimePtn();
 
-    abstract protected DateTimeFormatter timeFormatter();
+    abstract protected DateTimeFormatter datetimeFormatter();
 
     abstract protected DateTimeFormatter dateFormatter();
+
+    abstract protected LocalDateTime parseTime(String time);
 
     @Override
     public LocalDateTime toDateTime(String strTime) {
@@ -29,8 +33,10 @@ abstract public class AbsTimeInflater implements TimeInflater {
             ldTime = LocalDate.parse(strTime, dateFormatter())
                     .atTime(0, 0 , 0);
         } else if (datetimePtn().matcher(strTime).matches()) {
-            ldTime = LocalDateTime.parse(strTime, timeFormatter());
-        } else {
+            ldTime = LocalDateTime.parse(strTime, datetimeFormatter());
+        } else if (timePtn().matcher(strTime).matches()){
+            ldTime = parseTime(strTime);
+        }else {
             logger.severe("Illegal Date-Time Format: '" + strTime + "'");
             throw new RuntimeException("Illegal Date-Time Format");
         }

@@ -116,6 +116,11 @@ abstract public class PredicateNode<T> extends AbsPredicate<T> {
         return this;
     }
 
+    public boolean containPredicate(String name) {
+        Require.argumentNotNull(name);
+        return predicates.stream().anyMatch(predicate -> name.equals(predicate.getName()));
+    }
+
     public PredicateNode<T> clearPredicates() {
         predicates.clear();
         return this;

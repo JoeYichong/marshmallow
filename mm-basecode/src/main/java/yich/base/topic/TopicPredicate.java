@@ -151,7 +151,7 @@ public class TopicPredicate extends PredicateNode<Topic> {
         }
 
         @Override
-        protected String getTargetTimeAsString(Topic topic) {
+        protected Object getTargetTime(Topic topic) {
             return topic == null ? null : topic.getPostTime();
         }
 
