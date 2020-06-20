@@ -51,10 +51,10 @@ public class DocUtil {
     }
 
 
-    private static void detectAndRmBot(DriverProvider driverProvider) {
-        if (BotDetector.detectBot(driverProvider.get())) {
+    public static void detectAndRmBot(DriverProvider driverProvider) {
+        if (BotDetector.detectBot(driverProvider)) {
             logger.info("*** Bot Detected");
-            BotDetector.rmChromeDriverTrace(driverProvider.get());
+            BotDetector.rmChromeDriverTrace(driverProvider);
             logger.info("*** Bot Removing Script Executed.");
         }
     }
